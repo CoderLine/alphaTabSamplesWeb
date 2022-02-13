@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>AlphaTab Simple Demo</title>
+    <!-- Simple include of script file -->
+    <!-- We're using JsDelivr as CDN here -->
+    <script src="https://cdn.jsdelivr.net/npm/@coderline/alphatab@alpha/dist/alphaTab.min.js"></script>
+</head>
+
+<body>
+    <!-- Placeholder into which alphaTab will go -->
+    <div id="alphaTab"></div>
+    
+    <script type="text/javascript">
+        // initialize alphaTab
+        const el = document.querySelector('#alphaTab');
+        const at = new alphaTab.AlphaTabApi(el, {
+            file: 'https://www.alphatab.net/files/canon.gp'
+        });
+    </script>
+</body>
+
+</html>
