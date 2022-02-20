@@ -1,0 +1,21 @@
+{
+  "name": "alphatab-webpack-sample",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Daniel Kuschny",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack --mode development",
+    "start": "npm run build && serve dist"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^10.2.4",
+    "serve": "^13.0.2",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.2",
+    "webpack-virtual-modules": "^0.4.3"
+  },
+  "dependencies": {
+    "@coderline/alphatab": "^1.3.0-alpha.182"
+  }
+}
