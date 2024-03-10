@@ -1,0 +1,19 @@
+{
+  "name": "alphatab-webpack-sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode development",
+    "start": "npm run build && node dist/app.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@coderline/alphatab": "^1.3.0-alpha"
+  },
+  "devDependencies": {
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4"
+  }
+}
