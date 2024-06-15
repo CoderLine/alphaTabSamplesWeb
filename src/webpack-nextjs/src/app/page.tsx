@@ -1,19 +1,14 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react";
-import { AlphaTab, AlphaTabApi, Settings, AlphaTabLoader } from "./alphatab";
+import { AlphaTabApi, Settings } from "@coderline/alphatab";
 
 export default function Home() {
   const elementRef = useRef<HTMLDivElement>(null);
-  const [alphaTab, setAlphaTab] = useState<AlphaTab>();
   const [api, setApi] = useState<AlphaTabApi>();
 
   useEffect(() => {
-    if(!alphaTab) {
-      return;
-    }
-
-    const api = new alphaTab.AlphaTabApi(elementRef.current!, {
+    const api = new AlphaTabApi(elementRef.current!, {
       core: {
         file: 'https://www.alphatab.net/files/canon.gp',
         fontDirectory: '/alphatab/font/'
@@ -32,7 +27,7 @@ export default function Home() {
       console.log('destroy', elementRef, api);
       api.destroy();
     }
-  }, [alphaTab]);
+  }, []);
 
   function playPause() {
     api?.playPause();
@@ -41,7 +36,6 @@ export default function Home() {
   return (
     <>
       <main>
-        <AlphaTabLoader onLoad={setAlphaTab} />
         <button onClick={() => playPause()}>Play/Pause</button>
         <div ref={elementRef}></div>
       </main>
