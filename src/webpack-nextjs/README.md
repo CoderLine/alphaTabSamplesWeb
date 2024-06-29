@@ -1,32 +1,18 @@
-# Next.js Example (Without WebPack Plugin)
+# Next.js Example
 
-Until we have official support for next.js the integration of alphaTab into next.js applications have to be in quite a old-fashioned way:
+This sample shows how to use alphaTab with next.js.
 
-We include alphaTab as plain javascript asset file and let next.js load this file instead of using webpack dependency management. 
-This way we can include alphaTab in a raw-fashion so that WebWorkers and AudioWorklets work. 
+In the `next.config.mjs` we register the alphaTab webpack plugin taking care of the bundling specific points. 
 
-https://github.com/orgs/CoderLine/projects/12?pane=issue&itemId=65623529
+## Starting
 
+```bash
+npm i
+npm run dev
+```
 
-## What's special in this project
+## Whats Special 
 
-### next.config.mjs
-
-In there we setup the WebPack CopyPlugin to copy the alphaTab files:
-
-* the UMD alphaTab.min.js for registering alphaTab as a global. 
-* the font directory containing the music notation glyph font. 
-* the soundfont directory containing the SF2 files for audio playback. 
-
-Additionally we tell WebPack to "load" alphaTab from the global variable (e.g. globalThis.alphaTab).
-This global variable will be added by adding a `script` tag for the plain `alphaTab.min.js`.
-
-### src/alphaTab.ts
-
-This file hides away the complexity of dynamically loading alphaTab and prevents that alphaTab is used directly and not via dynamically loaded script tag.
-
-It uses the [`<Script />`](https://nextjs.org/docs/pages/api-reference/components/script) component to load alphaTab and provides a callback to when it is loaded.
-
-### page.tsx
-
-Here we use alphaTab through the specialized loader. 
+* In `next.config.mjs` configure the `AlphaTabWebPackPlugin` to copy the assets to ``public/alphatab` via `assetOutputDir`. This is because of some known issue that in next.js assets are not served in "dev" mode. See https://github.com/vercel/next.js/issues/45478 and https://github.com/orgs/vercel/discussions/5182.
+* In `page.tsx` you find the code to initialize alphaTab. There you will also see that we
+    * Set the `fontDirectory` and `soundFont` paths to point to the assets we copy. 

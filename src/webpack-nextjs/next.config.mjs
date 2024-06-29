@@ -4,7 +4,9 @@ import { AlphaTabWebPackPlugin } from '@coderline/alphatab/webpack'
 const nextConfig = {
   webpack(config) {
     config.plugins.push(
-      new AlphaTabWebPackPlugin()
+      new AlphaTabWebPackPlugin({
+        assetOutputDir: 'public/alphatab'
+      })
     );
     return config;
   },
