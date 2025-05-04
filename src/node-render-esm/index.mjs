@@ -1,6 +1,6 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import * as https from 'https';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import * as https from 'node:https';
 import * as alphaTab from '@coderline/alphatab';
 import * as alphaSkia from '@coderline/alphaskia';
 
@@ -27,7 +27,7 @@ const fileData = await loadFile('https://www.alphatab.net/files/canon.gp');
 
 // enable alphaSkia for rendering PNGs
 alphaTab.Environment.enableAlphaSkia(
-    fs.readFileSync('./node_modules/@coderline/alphatab/dist/font/Bravura.ttf').buffer,
+    fs.readFileSync('./node_modules/@coderline/alphatab/dist/font/Bravura.otf').buffer,
     alphaSkia
 );
 

@@ -1,4 +1,4 @@
-import * as https from 'https';
+import * as https from 'node:https';
 import * as alphaTab from '@coderline/alphatab';
 
 // download test file
@@ -35,7 +35,7 @@ for (let i = 0; i < score.tracks.length; i++) {
     const track = score.tracks[i];
     const trackType = track.staves.find(s => s.isPercussion)
             ? "Percussion"
-            : "Midi Instrument: " + track.playbackInfo.program;
+            : `Midi Instrument: ${track.playbackInfo.program}`;
     console.log(`   ${i + 1} - ${track.name} - ${trackType}`);
 }
 

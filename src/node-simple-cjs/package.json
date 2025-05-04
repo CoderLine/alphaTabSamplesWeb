@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@coderline/alphatab": "^1.3.0-alpha.172"
+    "@coderline/alphatab": "^1.5.0-alpha.1396"
   }
 }

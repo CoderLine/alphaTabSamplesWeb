@@ -1,4 +1,4 @@
-const https = require('https');
+const https = require('node:https');
 const alphaTab = require('@coderline/alphatab');
 
 // download test file
@@ -35,7 +35,7 @@ loadFile('https://www.alphatab.net/files/canon.gp').then(fileData => {
         const track = score.tracks[i];
         const trackType = track.staves.find(s => s.isPercussion)
                 ? "Percussion"
-                : "Midi Instrument: " + track.playbackInfo.program;
+                : `Midi Instrument: ${track.playbackInfo.program}`;
         console.log(`   ${i + 1} - ${track.name} - ${trackType}`);
     }
 });

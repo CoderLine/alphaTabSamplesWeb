@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
-import { AlphaTabApi, Settings } from '@coderline/alphatab'
+import { AlphaTabApi, type json } from '@coderline/alphatab'
 
 function App() {
   const elementRef = useRef<HTMLDivElement>(null);
@@ -18,7 +18,7 @@ function App() {
         enableUserInteraction: true,
         soundFont: '/soundfont/sonivox.sf2'
       }
-    } as Settings);
+    } as json.SettingsJson);
     
     setApi(api);
 
@@ -36,8 +36,8 @@ function App() {
     <>
       Hello AlphaTab!
 
-      <button onClick={() => playPause()}>Play/Pause</button>
-      <div ref={elementRef}></div>
+      <button type="button" onClick={() => playPause()}>Play/Pause</button>
+      <div ref={elementRef} />
     </>
   )
 }
