@@ -10,7 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@coderline/alphatab": "^1.5.0-alpha.1396",
+    "@coderline/alphatab": "^1.8.0",
+    "@coderline/alphatab-vite": "^1.8.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
