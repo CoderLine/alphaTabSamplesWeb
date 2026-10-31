@@ -58,10 +58,10 @@ export default nextConfig;
 
 ## Turbopack
 
-Turbopack, the default bundler of Next.js 16, cannot run the alphaTab webpack plugin, and alphaTab does not work with Turbopack out of the box:
+Turbopack, the default bundler of Next.js 16, cannot run the alphaTab webpack plugin:
 
-- Turbopack bundles `new Worker(new URL(...), { type: 'module' })` as a worker, but it compiles `import.meta.url` in client code to a `file://` URL. alphaTab then does not detect that it runs as an ES module and never takes its worker code path. The render worker and the synth worker fail ("Could not detect alphaTab script file, cannot initialize renderer"); rendering falls back to the main thread and there is no playback.
-- Turbopack has no audio worklet support: `audioWorklet.addModule(new URL(...))` is copied as an unbundled file, whose import of alphaTab's core does not resolve.
-- `turbopack.rules` only configures webpack loaders, which cannot add worker or worklet entries.
+- alphaTab detects Turbopack and starts its workers in the form Turbopack bundles (`new Worker(new URL(...), { type: 'module' })`); they share alphaTab's core chunk with the page.
+- Turbopack has no Audio Worklet support: `audioWorklet.addModule(new URL(...))` is copied as an unbundled file, whose import of alphaTab's core does not resolve. Under Turbopack, alphaTab loads the worklet from `core.scriptFile` instead, which must point to a copy of alphaTab's ES module.
+- `turbopack.rules` only configures webpack loaders, which cannot add worker or worklet entries, and nothing copies the font and SoundFont.
 
-It can be made to work by bypassing alphaTab's automatic initialization (`@coderline/alphatab/core`, own worker entry, worklet served from `public/`). See the `nextjs-16-turbopack` sample for that setup and its trade-offs. With the webpack plugin (this sample) no extra code is needed and alphaTab is loaded once, so webpack remains the recommended bundler for Next.js.
+The `nextjs-16-turbopack` sample shows that setup: a script copies the font, the SoundFont and alphaTab's ES module into `public/`, and the worklet loads a second copy of alphaTab's core. With the webpack plugin (this sample) no copy step is needed and alphaTab is loaded once, so webpack remains the recommended bundler for Next.js.
