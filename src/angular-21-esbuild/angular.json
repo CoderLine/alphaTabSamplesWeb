@@ -41,7 +41,7 @@
                 "output": "soundfont"
               },
               {
-                "glob": "alphaTab.{mjs,core.mjs,worker.mjs,worklet.mjs}",
+                "glob": "alphaTab.{min.mjs,core.min.mjs,worker.min.mjs,worklet.min.mjs}",
                 "input": "node_modules/@coderline/alphatab/dist",
                 "output": "alphatab"
               }

@@ -32,9 +32,11 @@ alphaTab's core:
 1. **`angular.json` → `externalDependencies: ["@coderline/alphatab"]`** keeps the import of
    `@coderline/alphatab` as a bare import in the output.
 2. **`angular.json` → `assets`** copies from `node_modules/@coderline/alphatab/dist`:
-   `alphaTab.mjs`, `alphaTab.core.mjs`, `alphaTab.worker.mjs` and `alphaTab.worklet.mjs` to `/alphatab/`,
+   `alphaTab.min.mjs`, `alphaTab.core.min.mjs`, `alphaTab.worker.min.mjs` and `alphaTab.worklet.min.mjs` to
+   `/alphatab/`,
    `font/*` to `/font/` (`core.fontDirectory`) and `soundfont/sonivox.sf3` to `/soundfont/` (`player.soundFont`).
-3. **`src/index.html`** maps `@coderline/alphatab` to `/alphatab/alphaTab.mjs` with an import map.
+3. **`src/index.html`** maps `@coderline/alphatab` to `/alphatab/alphaTab.min.mjs` with an import map.
+   alphaTab then finds its worker and worklet next to that file.
 4. **`angular.json` → `index.preloadInitial: false`** prevents a `<link rel="modulepreload" href="@coderline/alphatab">`
    in the production `index.html`; browsers do not resolve it through the import map and report an error.
 
@@ -47,7 +49,9 @@ later) and destroys it via `DestroyRef`.
 
 - The files under `/alphatab/` are not content-hashed; make sure browsers fetch the new files after an alphaTab
   update.
-- The core is served unminified (2.5 MB, about 520 kB gzip): alphaTab's `*.min.mjs` entries import the
-  unminified `alphaTab.core.mjs`.
+- The copied files are alphaTab's minified set: `alphaTab.min.mjs` imports `alphaTab.core.min.mjs` (1.2 MB,
+  about 300 kB gzip) and starts `alphaTab.worker.min.mjs` and `alphaTab.worklet.min.mjs`, which import the same
+  core. For debugging, copy `alphaTab.{mjs,core.mjs,worker.mjs,worklet.mjs}` and map `@coderline/alphatab` to
+  `/alphatab/alphaTab.mjs` instead; each set references only its own files, so copy and map one set completely.
 - Bundling alphaTab and copying `alphaTab.{core,worker,worklet}.mjs` to the output root also works (verified with
   Angular 22) but loads 2 copies of the core; see `angular-22-esbuild` for the comparison.

@@ -29,15 +29,16 @@ still points to `./alphaTab.worker.mjs` next to `main-*.js`, the file does not e
 renders (no error is reported). `ng serve` hides the problem: its Vite pre-bundling resolves the worker URL.
 
 This sample therefore does not bundle alphaTab. The browser loads alphaTab's own ES modules, and the page,
-the workers and the worklet share one copy of alphaTab's core (`alphaTab.core.mjs`):
+the workers and the worklet share one copy of alphaTab's core (`alphaTab.core.min.mjs`):
 
 1. **`angular.json` → `externalDependencies: ["@coderline/alphatab"]`** keeps `import ... from '@coderline/alphatab'`
    as a bare import in the output, for the browser and the server bundle.
 2. **`angular.json` → `assets`** copies from `node_modules/@coderline/alphatab/dist`:
-   - `alphaTab.mjs`, `alphaTab.core.mjs`, `alphaTab.worker.mjs`, `alphaTab.worklet.mjs` to `/alphatab/`,
+   - `alphaTab.min.mjs`, `alphaTab.core.min.mjs`, `alphaTab.worker.min.mjs`, `alphaTab.worklet.min.mjs` to
+     `/alphatab/`,
    - the Bravura music font (`font/*`) to `/font/` (setting `core.fontDirectory`),
    - the SoundFont `soundfont/sonivox.sf3` to `/soundfont/` (setting `player.soundFont`).
-3. **`src/index.html`** has an import map that resolves `@coderline/alphatab` to `/alphatab/alphaTab.mjs`.
+3. **`src/index.html`** has an import map that resolves `@coderline/alphatab` to `/alphatab/alphaTab.min.mjs`.
    alphaTab then finds its worker and worklet next to that file.
 4. **`angular.json` → `index.preloadInitial: false`**: otherwise the production build adds
    `<link rel="modulepreload" href="@coderline/alphatab">`, which browsers do not resolve through the import map;
@@ -62,8 +63,10 @@ empty container.
 - The files under `/alphatab/` keep their names across alphaTab versions and are not content-hashed. The
   generated `server.ts` serves static files with `maxAge: '1y'`; make sure browsers fetch the new files after
   an alphaTab update (shorter cache lifetime for `/alphatab/`, or a versioned output folder).
-- The core is served unminified (2.5 MB, about 520 kB gzip). alphaTab's `*.min.mjs` entry files import the
-  unminified `alphaTab.core.mjs`, so there is no minified set of files to copy instead.
+- The copied files are alphaTab's minified set: `alphaTab.min.mjs` imports `alphaTab.core.min.mjs` (1.2 MB,
+  about 300 kB gzip) and starts `alphaTab.worker.min.mjs` and `alphaTab.worklet.min.mjs`, which import the same
+  core. For debugging, copy `alphaTab.{mjs,core.mjs,worker.mjs,worklet.mjs}` and map `@coderline/alphatab` to
+  `/alphatab/alphaTab.mjs` instead; each set references only its own files, so copy and map one set completely.
 
 Other setups that work with the application builder (verified with Angular 22), each with more copies of
 alphaTab's core:
