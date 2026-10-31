@@ -1,16 +1,7 @@
 'use client';
 
-import * as alphaTab from '@coderline/alphatab/core';
+import * as alphaTab from '@coderline/alphatab';
 import { useEffect, useRef, useState } from 'react';
-
-function initializeAlphaTab() {
-  alphaTab.Environment.initializeMain(
-    // Turbopack bundles workers created in this form; the worker shares alphaTab's core chunk with the page.
-    (_settings, name) => new Worker(new URL('./alphaTab.worker.ts', import.meta.url), { type: 'module', name }),
-    // Turbopack cannot bundle worklets: the worklet loads the unbundled entry copied to public/.
-    context => context.audioWorklet.addModule('/alphatab/alphaTab.worklet.mjs')
-  );
-}
 
 export function ScoreViewer() {
   const elementRef = useRef<HTMLDivElement>(null);
@@ -20,11 +11,12 @@ export function ScoreViewer() {
 
   // Client components are rendered on the server too; effects run only in the browser.
   useEffect(() => {
-    initializeAlphaTab();
     const api = new alphaTab.AlphaTabApi(elementRef.current!, {
       core: {
         file: '/iron-waltz.gp',
-        fontDirectory: '/alphatab/font/'
+        fontDirectory: '/alphatab/font/',
+        // Turbopack does not bundle Audio Worklets; alphaTab loads its worklet from this copied entry.
+        scriptFile: '/alphatab/alphaTab.mjs'
       },
       player: {
         enablePlayer: true,

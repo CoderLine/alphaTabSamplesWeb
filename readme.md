@@ -21,7 +21,8 @@ alphaTab runs its rendering and synthesizer in a Web Worker and its audio output
 
 - **webpack, Rspack, Rsbuild:** [`@coderline/alphatab-webpack`](https://www.npmjs.com/package/@coderline/alphatab-webpack) (one plugin for webpack 5 and Rspack 1/2).
 - **Vite** (and frameworks built on it): [`@coderline/alphatab-vite`](https://www.npmjs.com/package/@coderline/alphatab-vite).
-- **Other bundlers** (esbuild, Rollup, Parcel, Turbopack, Angular's application builder): the app owns small worker and worklet entry files that import `@coderline/alphatab/worker` and `@coderline/alphatab/worklet`, and initializes alphaTab from `@coderline/alphatab/core`, or alphaTab is loaded unbundled. The samples show the setup per tool.
+- **Turbopack** (Next.js): no plugin; alphaTab detects Turbopack and Turbopack bundles its workers. The Audio Worklet loads alphaTab's unbundled ES module, copied into `public/`.
+- **Other bundlers** (esbuild, Rollup, Parcel, Angular's application builder): the app owns small worker and worklet entry files that import `@coderline/alphatab/worker` and `@coderline/alphatab/worklet`, and initializes alphaTab from `@coderline/alphatab/core`, or alphaTab is loaded unbundled. The samples show the setup per tool.
 
 ## Samples
 
@@ -59,7 +60,7 @@ alphaTab runs its rendering and synthesizer in a Web Worker and its audio output
 | [`react-19-vite`](src/react-19-vite) | React 19 (React 18 works the same), Vite 8 | `@coderline/alphatab-vite` | 1 |
 | [`nextjs-16-webpack`](src/nextjs-16-webpack) | Next.js 16 with `--webpack` | `@coderline/alphatab-webpack` | 1 (dev: 3) |
 | [`nextjs-15-webpack`](src/nextjs-15-webpack) | Next.js 15 (webpack) | `@coderline/alphatab-webpack` | 1 (dev: 3) |
-| [`nextjs-16-turbopack`](src/nextjs-16-turbopack) | Next.js 16 with Turbopack | own worker entry, copied worklet and core | 2 |
+| [`nextjs-16-turbopack`](src/nextjs-16-turbopack) | Next.js 16 with Turbopack | workers bundled by Turbopack, worklet from the copied ES module (`core.scriptFile`) | 2 |
 | [`vue-3-vite`](src/vue-3-vite) | Vue 3, Vite 8 | `@coderline/alphatab-vite` | 1 |
 | [`nuxt-4`](src/nuxt-4) | Nuxt 4 (Vite 8), SSR | `@coderline/alphatab-vite` | 1 |
 | [`nuxt-3`](src/nuxt-3) | Nuxt 3 (Vite 7), SSR | `@coderline/alphatab-vite` | 1 |
@@ -79,5 +80,5 @@ alphaTab runs its rendering and synthesizer in a Web Worker and its audio output
 
 ## Not supported
 
-- **Next.js with Turbopack and the webpack plugin:** Turbopack runs no webpack plugins. The [`nextjs-16-turbopack`](src/nextjs-16-turbopack) sample shows the manual setup; with webpack (`next dev --webpack`, `next build --webpack`) the plugin works.
+- **Next.js with Turbopack and the webpack plugin:** Turbopack runs no webpack plugins and bundles no Audio Worklets. The [`nextjs-16-turbopack`](src/nextjs-16-turbopack) sample shows the setup without the plugin; with webpack (`next dev --webpack`, `next build --webpack`) the plugin works and alphaTab loads once.
 - **Angular's application builder with alphaTab bundled:** the builder handles workers only in the app's own code and has no worklet support. The Angular esbuild samples keep alphaTab external instead.
