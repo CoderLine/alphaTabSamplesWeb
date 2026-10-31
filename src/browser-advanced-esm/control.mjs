@@ -65,11 +65,13 @@ function setupControl(selector) {
 
 	const viewPort = control.querySelector(".at-viewport");
 	const at = new alphaTab.AlphaTabApi(el, {
-		file: "https://www.alphatab.net/files/canon.gp",
+		core: {
+			file: "iron-waltz.gp",
+		},
 		player: {
-			enablePlayer: true,
+			playerMode: alphaTab.PlayerMode.EnabledAutomatic,
 			soundFont:
-				"https://cdn.jsdelivr.net/npm/@coderline/alphatab@alpha/dist/soundfont/sonivox.sf2",
+				"https://cdn.jsdelivr.net/npm/@coderline/alphatab@alpha/dist/soundfont/sonivox.sf3",
 			scrollElement: viewPort,
 			scrollOffsetX: -10,
 		},

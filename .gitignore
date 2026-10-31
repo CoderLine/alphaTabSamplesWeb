@@ -1,6 +1,5 @@
 node_modules/
 dist/
-canon.png
 
 **/public/font/
 **/public/soundfont/

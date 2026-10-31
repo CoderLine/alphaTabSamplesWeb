@@ -1,0 +1,5 @@
+node_modules
+dist
+# copied from @coderline/alphatab by the alphaTab Vite plugin
+public/font
+public/soundfont

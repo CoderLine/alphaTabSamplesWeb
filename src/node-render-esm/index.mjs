@@ -1,37 +1,17 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import * as https from 'node:https';
 import * as alphaTab from '@coderline/alphatab';
 import * as alphaSkia from '@coderline/alphaskia';
 
-// download test file
-async function loadFile(url) {
-    return new Promise((resolve, reject) => {
-        https.get(url, res => {
-            res.setEncoding('binary');
-
-            const data = [];
-
-            res.on('data', chunk => {
-                data.push(Buffer.from(chunk, 'binary'));
-            }).on('end', () => {
-                resolve(Buffer.concat(data));
-            }).on('error', err => {
-                reject(err);
-            });
-        });
-    });
-}
-
-const fileData = await loadFile('https://www.alphatab.net/files/canon.gp');
+const fileData = fs.readFileSync(new URL('./iron-waltz.gp', import.meta.url));
 
 // enable alphaSkia for rendering PNGs
 alphaTab.Environment.enableAlphaSkia(
-    fs.readFileSync('./node_modules/@coderline/alphatab/dist/font/Bravura.otf').buffer,
+    new Uint8Array(fs.readFileSync(new URL(import.meta.resolve('@coderline/alphatab/font/Bravura.otf')))).buffer,
     alphaSkia
 );
 
-const score = alphaTab.importer.ScoreLoader.loadScoreFromBytes(fileData);
+const score = alphaTab.importer.ScoreLoader.loadScoreFromBytes(new Uint8Array(fileData));
 
 const settings = new alphaTab.Settings();
 settings.core.engine = 'skia';
@@ -65,7 +45,7 @@ renderer.renderFinished.on(r => {
         
         const fullImage = fullImageCanvas.endRender();
         try {
-            const imagePath = path.resolve('./canon.png');
+            const imagePath = path.resolve('./iron-waltz.png');
             fs.writeFileSync(imagePath, new Uint8Array(fullImage.toPng()));
             console.log('Saved image to ', imagePath)
         }
@@ -81,5 +61,5 @@ renderer.renderFinished.on(r => {
     }
 });
 
-// 3. Fire off rendering
+// render the first track
 renderer.renderScore(score, [0]);

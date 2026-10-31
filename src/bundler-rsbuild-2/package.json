@@ -1,0 +1,20 @@
+{
+  "name": "alphatab-bundler-rsbuild-2",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "rsbuild dev",
+    "build": "rsbuild build",
+    "preview": "rsbuild preview"
+  },
+  "dependencies": {
+    "@coderline/alphatab": "^1.9.0-alpha.1965"
+  },
+  "devDependencies": {
+    "@coderline/alphatab-webpack": "^1.9.0-alpha.1965",
+    "@rsbuild/core": "^2.3.0",
+    "@types/node": "^24.19.2",
+    "typescript": "^7.0.2"
+  }
+}

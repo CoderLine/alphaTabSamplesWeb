@@ -1,0 +1,23 @@
+{
+  "name": "alphatab-bundler-parcel-2",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "source": "src/index.html",
+  "scripts": {
+    "dev": "node copy-assets.mjs && parcel serve --port 4180",
+    "build": "tsc && node copy-assets.mjs && parcel build",
+    "preview": "serve dist --listen 4180"
+  },
+  "@parcel/resolver-default": {
+    "packageExports": true
+  },
+  "dependencies": {
+    "@coderline/alphatab": "^1.9.0-alpha.1965"
+  },
+  "devDependencies": {
+    "parcel": "^2.16.4",
+    "serve": "^14.2.6",
+    "typescript": "~7.0.2"
+  }
+}
