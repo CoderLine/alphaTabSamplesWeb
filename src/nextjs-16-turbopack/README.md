@@ -43,21 +43,27 @@ The client component imports `@coderline/alphatab` and points alphaTab to the co
 ```ts
 import * as alphaTab from '@coderline/alphatab';
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH;
+
 const api = new alphaTab.AlphaTabApi(element, {
   core: {
-    file: '/iron-waltz.gp',
-    fontDirectory: '/alphatab/font/',
-    scriptFile: '/alphatab/alphaTab.mjs'
+    file: `${basePath}/iron-waltz.gp`,
+    fontDirectory: `${basePath}/alphatab/font/`,
+    scriptFile: `${basePath}/alphatab/alphaTab.mjs`
   },
   player: {
     enablePlayer: true,
     enableCursor: true,
-    soundFont: '/alphatab/soundfont/sonivox.sf2'
+    soundFont: `${basePath}/alphatab/soundfont/sonivox.sf2`
   }
 });
 ```
 
-The rest is the same as with webpack: `page.tsx` stays a server component, `ScoreViewer` is a client component that creates the `AlphaTabApi` in `useEffect` (client components are also rendered on the server; effects only run in the browser) and destroys it in the cleanup. Prefix the asset paths with your [`basePath`](https://nextjs.org/docs/app/api-reference/config/next-config-js/basePath) if you set one.
+The rest is the same as with webpack: `page.tsx` stays a server component, `ScoreViewer` is a client component that creates the `AlphaTabApi` in `useEffect` (client components are also rendered on the server; effects only run in the browser) and destroys it in the cleanup.
+
+### Serving from a sub-path (`next.config.ts`)
+
+To serve the app below a sub-path, set `basePath` in `next.config.ts` (e.g. `'/sub'`). Next.js applies [`basePath`](https://nextjs.org/docs/app/api-reference/config/next-config-js/basePath) to its routes and bundles, so the workers load without changes. It does not apply it to URLs your code builds for files in `public/`, so the config exposes it as `NEXT_PUBLIC_BASE_PATH` and `ScoreViewer` prefixes `core.file`, `core.fontDirectory`, `core.scriptFile` and `player.soundFont` with it. Without the prefix, these requests go to the server root, fail with 404, and nothing renders.
 
 ## Known limitations
 

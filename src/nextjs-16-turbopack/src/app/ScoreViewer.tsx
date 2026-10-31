@@ -3,6 +3,9 @@
 import * as alphaTab from '@coderline/alphatab';
 import { useEffect, useRef, useState } from 'react';
 
+// Next.js does not prefix URLs into public/ with basePath; next.config.ts exposes it for that.
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH;
+
 export function ScoreViewer() {
   const elementRef = useRef<HTMLDivElement>(null);
   const apiRef = useRef<alphaTab.AlphaTabApi | null>(null);
@@ -13,15 +16,15 @@ export function ScoreViewer() {
   useEffect(() => {
     const api = new alphaTab.AlphaTabApi(elementRef.current!, {
       core: {
-        file: '/iron-waltz.gp',
-        fontDirectory: '/alphatab/font/',
+        file: `${basePath}/iron-waltz.gp`,
+        fontDirectory: `${basePath}/alphatab/font/`,
         // Turbopack does not bundle Audio Worklets; alphaTab loads its worklet from this copied entry.
-        scriptFile: '/alphatab/alphaTab.mjs'
+        scriptFile: `${basePath}/alphatab/alphaTab.mjs`
       },
       player: {
         enablePlayer: true,
         enableCursor: true,
-        soundFont: '/alphatab/soundfont/sonivox.sf2'
+        soundFont: `${basePath}/alphatab/soundfont/sonivox.sf2`
       }
     });
     apiRef.current = api;
