@@ -1,24 +1,34 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8" />
-    <title>AlphaTab Simple Demo</title>
-    <!-- Simple include of script file -->
-    <!-- We're using JsDelivr as CDN here -->
-    <script src="https://cdn.jsdelivr.net/npm/@coderline/alphatab@latest/dist/alphaTab.min.js"></script>
-</head>
-
-<body>
-    <!-- Placeholder into which alphaTab will go -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>alphaTab UMD from a CDN</title>
+    <script src="https://cdn.jsdelivr.net/npm/@coderline/alphatab@alpha/dist/alphaTab.min.js"></script>
+  </head>
+  <body>
+    <button id="play-pause" type="button" disabled>Play</button>
     <div id="alphaTab"></div>
-    
-    <script type="text/javascript">
-        // initialize alphaTab
-        const el = document.querySelector('#alphaTab');
-        const at = new alphaTab.AlphaTabApi(el, {
-            file: 'https://www.alphatab.net/files/canon.gp'
-        });
-    </script>
-</body>
 
+    <script>
+      const playPause = document.querySelector('#play-pause');
+      const api = new alphaTab.AlphaTabApi(document.querySelector('#alphaTab'), {
+        core: {
+          file: 'iron-waltz.gp'
+        },
+        player: {
+          playerMode: alphaTab.PlayerMode.EnabledAutomatic,
+          soundFont: 'https://cdn.jsdelivr.net/npm/@coderline/alphatab@alpha/dist/soundfont/sonivox.sf3'
+        }
+      });
+
+      api.playerReady.on(() => {
+        playPause.disabled = false;
+      });
+      api.playerStateChanged.on(e => {
+        playPause.textContent = e.state === alphaTab.synth.PlayerState.Playing ? 'Pause' : 'Play';
+      });
+      playPause.addEventListener('click', () => api.playPause());
+    </script>
+  </body>
 </html>

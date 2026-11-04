@@ -1,19 +1,13 @@
 {
-  "name": "simple-esm",
-  "version": "1.0.0",
+  "name": "alphatab-node-render-esm",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
-  "description": "",
-  "main": "index.mjs",
   "scripts": {
     "start": "node index.mjs"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "@coderline/alphaskia": "^2.1.120",
-    "@coderline/alphaskia-linux": "^2.1.120",
-    "@coderline/alphaskia-macos": "^2.1.120",
-    "@coderline/alphaskia-windows": "^2.1.120",
-    "@coderline/alphatab": "^1.5.0-alpha.1396"
+    "@coderline/alphaskia": "^3.5.147",
+    "@coderline/alphatab": "^1.9.0-alpha.1965"
   }
 }

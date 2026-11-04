@@ -1,0 +1,6 @@
+node_modules
+dist
+*.tsbuildinfo
+# copied by @coderline/alphatab-vite on every build/dev start
+public/font
+public/soundfont

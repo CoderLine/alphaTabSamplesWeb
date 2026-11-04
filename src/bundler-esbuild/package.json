@@ -1,0 +1,19 @@
+{
+  "name": "alphatab-bundler-esbuild",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node build.mjs --serve",
+    "build": "tsc && node build.mjs",
+    "preview": "serve dist --listen 4170"
+  },
+  "dependencies": {
+    "@coderline/alphatab": "^1.9.0-alpha.1965"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "serve": "^14.2.6",
+    "typescript": "~7.0.2"
+  }
+}

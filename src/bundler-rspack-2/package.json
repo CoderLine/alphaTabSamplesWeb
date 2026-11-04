@@ -1,0 +1,21 @@
+{
+  "name": "alphatab-bundler-rspack-2",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "rspack dev",
+    "build": "rspack build",
+    "preview": "rspack preview --port 4120"
+  },
+  "dependencies": {
+    "@coderline/alphatab": "^1.9.0-alpha.1965"
+  },
+  "devDependencies": {
+    "@coderline/alphatab-webpack": "^1.9.0-alpha.1965",
+    "@rspack/cli": "^2.3.0",
+    "@rspack/core": "^2.3.0",
+    "@rspack/dev-server": "^2.2.2",
+    "typescript": "^7.0.2"
+  }
+}

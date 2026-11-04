@@ -1,0 +1,24 @@
+{
+  "name": "nextjs-16-turbopack",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "predev": "node scripts/copy-alphatab-assets.mjs",
+    "dev": "next dev",
+    "prebuild": "node scripts/copy-alphatab-assets.mjs",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@coderline/alphatab": "^1.9.0-alpha.1965",
+    "next": "^16.4.3",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5"
+  }
+}

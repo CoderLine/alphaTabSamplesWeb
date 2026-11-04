@@ -1,15 +1,12 @@
 {
-  "name": "simple-esm",
-  "version": "1.0.0",
+  "name": "alphatab-node-simple-esm",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
-  "description": "",
-  "main": "index.mjs",
   "scripts": {
     "start": "node index.mjs"
   },
-  "author": "",
-  "license": "MIT",
   "dependencies": {
-    "@coderline/alphatab": "^1.5.0-alpha.1396"
+    "@coderline/alphatab": "^1.9.0-alpha.1965"
   }
 }

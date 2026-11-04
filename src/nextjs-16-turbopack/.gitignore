@@ -1,0 +1,8 @@
+/node_modules
+/.next/
+/out/
+*.tsbuildinfo
+next-env.d.ts
+.env*
+# copied by scripts/copy-alphatab-assets.mjs before every build/dev start
+/public/alphatab/

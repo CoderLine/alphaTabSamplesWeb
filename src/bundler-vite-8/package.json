@@ -1,0 +1,19 @@
+{
+  "name": "alphatab-bundler-vite-8",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@coderline/alphatab": "^1.9.0-alpha.1965"
+  },
+  "devDependencies": {
+    "@coderline/alphatab-vite": "^1.9.0-alpha.1965",
+    "typescript": "~7.0.2",
+    "vite": "^8.3.5"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "angular-20-esbuild": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.app.json",
+            "index": {
+              "input": "src/index.html",
+              "preloadInitial": false
+            },
+            "externalDependencies": [
+              "@coderline/alphatab"
+            ],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@coderline/alphatab/dist/font",
+                "output": "font"
+              },
+              {
+                "glob": "sonivox.sf3",
+                "input": "node_modules/@coderline/alphatab/dist/soundfont",
+                "output": "soundfont"
+              },
+              {
+                "glob": "alphaTab.{min.mjs,core.min.mjs,worker.min.mjs,worklet.min.mjs}",
+                "input": "node_modules/@coderline/alphatab/dist",
+                "output": "alphatab"
+              }
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "angular-20-esbuild:build:production"
+            },
+            "development": {
+              "buildTarget": "angular-20-esbuild:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        }
+      }
+    }
+  }
+}
